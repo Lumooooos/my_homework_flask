@@ -29,4 +29,14 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    #调用db中的方法，以初始化app
+    from . import db
+    db.init_app(app)
+
+    #调用auth中的方法，导入并注册蓝图，这里的是认证蓝图（bp）
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+
+
     return app
