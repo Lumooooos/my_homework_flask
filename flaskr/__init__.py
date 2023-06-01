@@ -37,6 +37,9 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-
+    #调用blog中的方法，导入并注册蓝图，这里的是博客蓝图（bp）
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
