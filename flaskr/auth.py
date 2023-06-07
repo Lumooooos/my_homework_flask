@@ -45,6 +45,7 @@ def register():
                 error = f"User {username} is already registered."
             #正常注册完毕，进入登录视图
             else:
+                flash('注册成功，请登录')
                 return redirect(url_for("auth.login"))
 
         flash(error)
