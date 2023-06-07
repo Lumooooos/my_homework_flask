@@ -29,6 +29,9 @@ def create():
         title = request.form['title']
         body = request.form['body']
         error = None
+        #新增，对于敏感词的屏蔽的调用
+        title = check_sensitive_words(title)
+        body = check_sensitive_words(body)
 
         #检测帖子是否有标题
         if not title:
@@ -36,6 +39,7 @@ def create():
 
         if error is not None:
             flash(error)
+
         else:
         #没有错误的话，将帖子的标题，主题，作者id都插入到数据库中，即视为发帖成功
             db = get_db()
@@ -48,6 +52,20 @@ def create():
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
+
+
+
+#新增
+#设置敏感词
+sensitive_words = ['习近平','杀','死']
+
+#对于新建的帖子以及修改帖子的时候，会检测帖子的主题和内容中是否存在敏感词
+def check_sensitive_words(s):
+    for word in sensitive_words:
+        s = s.replace(word,'*' * len(word))
+    return s
+
+
 
 
 #检测帖子是否存在，检测当前用户是否为帖子作者
@@ -79,12 +97,17 @@ def update(id):
         title = request.form['title']
         body = request.form['body']
         error = None
+        #新增，对于敏感词的屏蔽的调用
+        title = check_sensitive_words(title)
+        body = check_sensitive_words(body)
 
         if not title:
             error = 'Title is required.'
 
         if error is not None:
             flash(error)
+
+
         else:
             db = get_db()
             db.execute(
