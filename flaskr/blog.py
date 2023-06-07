@@ -20,6 +20,25 @@ def index():
     ).fetchall()
     return render_template('blog/index.html', posts=posts)
 
+# #新增
+# #写入一个帖子对应的页面，当点击帖子的时候进入该帖子的详细界面
+# @bp.route('/post/<int:post_id>')
+# def post(post_id):
+#     db = get_db()
+#     post = db.execute(
+#         'SELECT p.id, title, body, created, author_id, username'
+#         ' FROM post p JOIN user u ON p.author_id = u.id'
+#         ' WHERE p.id = ?'
+#         ' ORDER BY created DESC',
+#         (post_id,)
+#     ).fetchone()
+#     return render_template('post.html', post=post)
+
+# @bp.route('/post/<int:post_id>')
+# def view_post(post_id):
+#     return post(post_id)
+
+
 
 #创建新的帖子
 @bp.route('/create', methods=('GET', 'POST'))
