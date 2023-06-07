@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
+import re
+
 #认证蓝图
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -25,6 +27,10 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
+
+        #新增了对用户密码的格式要求
+        elif len(password) < 6 or not re.search(r'\d', password) or not re.search(r'[a-zA-Z]', password):
+            error = '密码至少6位，并包含数字和字母'
 
         #如果用户账号和密码不为空，则注册
         if error is None:
