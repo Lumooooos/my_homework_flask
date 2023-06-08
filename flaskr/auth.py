@@ -12,6 +12,19 @@ import re
 #认证蓝图
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+#新增
+#个人信息视图
+@bp.route('/profile', methods=['GET', 'POST'])
+def profile():
+    user = current_user
+    if request.method == 'POST':
+        user.username = request.form['username']
+        user.set_password(request.form['password'])
+        db.session.commit()
+        return redirect(url_for('auth.profile'))
+    return render_template('profile.html', user=user)
+
+
 #认证蓝图的注册视图
 #如果用户提交了表单，那么 request.method 将会是 'POST' 。这种情况下，将会验证用户的输入。
 @bp.route('/register', methods=('GET', 'POST'))
