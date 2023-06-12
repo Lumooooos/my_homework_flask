@@ -73,6 +73,26 @@ def create():
     return render_template('blog/create.html')
 
 
+#新增
+#搜索帖子
+@bp.route('/search/')
+def search():
+    # 获取用户输入的搜索关键字
+    keyword = request.args.get('keyword')
+    # 查询数据库中符合条件的帖子
+    db = get_db()
+    matched_posts = (
+        db.query(Post)
+        .join(User)
+        .filter(or_(Post.title.contains(keyword), Post.body.contains(keyword)))
+        .order_by(Post.created.desc())
+        .all()
+    )
+    # 渲染模板并将查询结果传递给模板
+    return render_template('blog/search_results.html', matched_posts=matched_posts)
+
+
+
 
 #新增
 #设置敏感词

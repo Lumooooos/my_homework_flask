@@ -14,15 +14,20 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 #新增
 #个人信息视图
-@bp.route('/profile', methods=['GET', 'POST'])
-def profile():
-    user = current_user
-    if request.method == 'POST':
-        user.username = request.form['username']
-        user.set_password(request.form['password'])
-        db.session.commit()
-        return redirect(url_for('auth.profile'))
-    return render_template('profile.html', user=user)
+# @bp.route('/auth/profile/<username>')
+# def profile(username):
+#     # 连接数据库
+#     conn = sqlite3.connect('user.db')
+#     c = conn.cursor()
+
+#     # 查询用户信息
+#     c.execute("SELECT * FROM user WHERE username = ?", (username,))
+#     user = c.fetchone()
+
+#     # 关闭数据库连接
+#     conn.close()
+
+#     return render_template('profile.html', user=user)
 
 
 #认证蓝图的注册视图

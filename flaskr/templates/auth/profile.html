@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}个人信息{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-  <form method="post">
-    <label for="username">用户名</label>
-    <input name="username" id="username" value="{{ user.username }}" required>
-    <label for="password">密码</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="更新">
-  </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>{{ user['username'] }}'s Profile</h2>
+        <p>Email: {{ user['email'] }}</p>
+        <p>Password: {{ user['password'] }}</p>
+      </div>
+    </div>
+  </div>
 {% endblock %}
