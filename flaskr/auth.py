@@ -14,14 +14,27 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 #新增
 #个人信息视图
-@bp.route('/auth/profile/<username>')
+@bp.route('/auth/profile/<username>', methods=['GET', 'POST'])
 def profile(username):
-    # 连接数据库
-    c = get_db()
-    # 查询用户信息
+    conn = get_db()
+    c = conn.cursor()
     user = c.execute(
         'SELECT * FROM user WHERE username = ?', (username,)
     ).fetchone()
+
+
+    if request.method == 'POST':
+        gender = request.form['gender']
+        height = request.form['height']
+        weight = request.form['weight']
+        phone = request.form['phone']
+        email = request.form['email']
+
+        c.execute("UPDATE user SET gender = ?, height = ?, weight = ?, phone = ?, email = ? WHERE username = ?", (gender, height, weight, phone, email, username))
+        conn.commit()
+
+        # 更新用户信息后，重定向到用户个人信息页面
+        return redirect(url_for('auth.profile', username=username))
 
     return render_template('auth/profile.html', user=user)
 

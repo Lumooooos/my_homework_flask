@@ -4,6 +4,14 @@ html {
   padding: 1rem;
 }
 
+.form-group label {
+  margin-bottom: 0.5rem; /* 增加 label 底部的行距 */
+}
+
+.form-group:not(:last-child) {
+  margin-bottom: 1rem; /* 增加 form-group 底部的行距，除了最后一个 form-group */
+}
+
 body {
   max-width: 960px;
   margin: 0 auto;

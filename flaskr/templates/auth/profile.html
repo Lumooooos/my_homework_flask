@@ -4,8 +4,33 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h2>{{ user[1] }}'s Profile</h2>
-        <p>Password: {{ user[2] }}</p>
+        <h2>{{ user[1] }}的个人信息</h2>
+        <form method="post">
+          <div class="form-group">
+            <label for="gender">性别</label>
+            <select class="form-control" id="gender" name="gender">
+              <option value="male" {% if user[3] == 'male' %}selected{% endif %}>男</option>
+              <option value="female" {% if user[3] == 'female' %}selected{% endif %}>女</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="height">身高</label>
+            <input type="number" class="form-control" id="height" name="height" value="{{ user[4] }}">
+          </div>
+          <div class="form-group">
+            <label for="weight">体重</label>
+            <input type="number" class="form-control" id="weight" name="weight" value="{{ user[5] }}">
+          </div>
+          <div class="form-group">
+            <label for="phone">电话</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ user[6] }}">
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user[7] }}">
+          </div>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </form>
       </div>
     </div>
   </div>

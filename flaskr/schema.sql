@@ -5,7 +5,12 @@ DROP TABLE IF EXISTS post;
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  gender TEXT,
+  height INTEGER,
+  weight INTEGER,
+  phone INTEGER,
+  email TEXT
 );
 
 CREATE TABLE post (
