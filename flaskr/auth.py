@@ -14,20 +14,16 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 #新增
 #个人信息视图
-# @bp.route('/auth/profile/<username>')
-# def profile(username):
-#     # 连接数据库
-#     conn = sqlite3.connect('user.db')
-#     c = conn.cursor()
+@bp.route('/auth/profile/<username>')
+def profile(username):
+    # 连接数据库
+    c = get_db()
+    # 查询用户信息
+    user = c.execute(
+        'SELECT * FROM user WHERE username = ?', (username,)
+    ).fetchone()
 
-#     # 查询用户信息
-#     c.execute("SELECT * FROM user WHERE username = ?", (username,))
-#     user = c.fetchone()
-
-#     # 关闭数据库连接
-#     conn.close()
-
-#     return render_template('profile.html', user=user)
+    return render_template('auth/profile.html', user=user)
 
 
 #认证蓝图的注册视图
