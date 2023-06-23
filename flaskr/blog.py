@@ -20,6 +20,20 @@ def index():
     ).fetchall()
     return render_template('blog/index.html', posts=posts)
 
+# 新建
+# 帖子详情
+@bp.route('/post/<int:post_id>')
+def post(post_id):
+    db = get_db()
+    posts = db.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' ORDER BY created DESC'
+    ).fetchall()
+    for p in posts:
+        if p['id'] == post_id:
+            return render_template('blog/post.html', post=p)
+    return '未找到该帖子'
 
 #创建新的帖子
 @bp.route('/create', methods=('GET', 'POST'))

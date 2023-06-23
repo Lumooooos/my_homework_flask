@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}帖子{% endblock %}</h1>
+  {% if g.user %}
+    <title>{{ post.title }}</title>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>主题： {{ post.title }}</h1>
+    <div class="about" style="text-align: right;">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+    <p>{{ post.body }}</p>
+{% endblock %}
