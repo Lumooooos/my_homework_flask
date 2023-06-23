@@ -12,13 +12,6 @@
         {% if g.user %}
           <li><a href="{{ url_for('auth.profile', username=g.user['username']) }}" class="btn btn-primary">{{ g.user['username'] }}</a></li>
           <li><a href="{{ url_for('auth.logout') }}">登出</a>
-          <!-- 添加搜索框和搜索按钮 -->
-          <li>
-            <form action="{{ url_for('blog.search') }}" method="get">
-              <input type="text" name="q" placeholder="搜索帖子">
-              <button type="submit">搜索</button>
-            </form>
-          </li>
         {% else %}
           <li><a href="{{ url_for('auth.register') }}">注册</a>
           <li><a href="{{ url_for('auth.login') }}">登录</a>
